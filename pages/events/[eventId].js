@@ -2,8 +2,8 @@ import {getEventById} from '../../dummy-data';
 import EventSummary from '../../src/components/event-detail/event-summary';
 import EventLogistics from '../../src/components/event-detail/event-logistics';
 import EventContent from '../../src/components/event-detail/event-content';
-import ErrorAlert from '../../src/components/ui/error-alert';
-import {getAllEvents, getFeaturedEvents} from '../../src/components/helpers/api';
+import {getFeaturedEvents} from '../../src/components/helpers/api';
+import { Head } from 'next/head';
 
 const Event = (props) => {
   const { event } = props;
@@ -14,6 +14,10 @@ const Event = (props) => {
 
   return (
     <>
+      <Head>
+        <title>{event.title}</title>
+        <meta name="description" content={event.description} />
+      </Head>
       <EventSummary title={event.title}/>
       <EventLogistics date={event.date} address={event.location} image={event.image} imageAlt={event.title}/>
       <EventContent>

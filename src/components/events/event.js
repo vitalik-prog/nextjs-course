@@ -12,7 +12,6 @@ const Event = ({ event }) => {
   })
   const prettyAddress = location.replace(', ', '\n')
   const exploreLink = `/events/${id}`
-
   return (
     <li className={styles.item}>
       <img src={'/' + image} alt={title} />
