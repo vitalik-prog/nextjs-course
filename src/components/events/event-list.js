@@ -1,5 +1,5 @@
 import React from 'react';
-import Event from './event';
+import ListItem from './listItem';
 import styles from './event-list.module.css'
 
 const EventList = (props) => {
@@ -7,7 +7,7 @@ const EventList = (props) => {
 
   return (
     <ul className={styles.list}>
-      {items.map(item => <Event key={item.id} event={item} />)}
+      {items.map(item => <ListItem key={item.id} event={item} />)}
     </ul>
   );
 };

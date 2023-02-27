@@ -15,6 +15,11 @@ const MainHeader = () => {
           </li>
         </ul>
       </nav>
+      <Link href={'/login'}>
+        <a className={styles.login}>
+          Login
+        </a>
+      </Link>
     </header>
   );
 };

@@ -2,8 +2,9 @@ import React from 'react';
 import Link from 'next/link';
 import styles from './event.module.css'
 import Button from '../ui/button';
+import Image from 'next/image';
 
-const Event = ({ event }) => {
+const ListItem = ({ event }) => {
   const { title, image, date, location, id } = event;
   const prettyDate = new Date(date).toLocaleDateString('en-US', {
     day: 'numeric',
@@ -14,7 +15,7 @@ const Event = ({ event }) => {
   const exploreLink = `/events/${id}`
   return (
     <li className={styles.item}>
-      <img src={'/' + image} alt={title} />
+      <Image src={'/' + image} alt={title} width={250} height={160} />
       <div className={styles.content}>
         <div>
           <h2>{title}</h2>
@@ -33,4 +34,4 @@ const Event = ({ event }) => {
   );
 };
 
-export default Event;
+export default ListItem;

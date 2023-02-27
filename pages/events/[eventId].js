@@ -1,13 +1,11 @@
+import Head from 'next/head';
 import {getEventById} from '../../dummy-data';
 import EventSummary from '../../src/components/event-detail/event-summary';
 import EventLogistics from '../../src/components/event-detail/event-logistics';
 import EventContent from '../../src/components/event-detail/event-content';
 import {getFeaturedEvents} from '../../src/components/helpers/api';
-import { Head } from 'next/head';
 
-const Event = (props) => {
-  const { event } = props;
-
+const Event = ({ event }) => {
   if (!event) {
     return <div className="center"><p>Loading</p></div>
   }

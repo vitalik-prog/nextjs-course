@@ -37,8 +37,21 @@ const FilteredEvents = (props) => {
 
   }, [data, numberYear, numberMonth]);
 
+  let pageHeadData = (
+    <Head>
+      <title>Filtered Events</title>
+      <meta 
+        name="description" 
+        content="A list of filtered events"
+      />
+    </Head>
+  );
+
   if (isLoading || typeof numberMonth === 'undefined' || typeof numberYear === undefined) {
-    return <p className={"center"}>Loading....</p>
+    return <>
+      {pageHeadData}
+      <p className={"center"}>Loading....</p>
+    </>
   }
 
   if (isNaN(numberYear) 
@@ -49,6 +62,7 @@ const FilteredEvents = (props) => {
   || numberMonth > 12 
   || error) {
     return <>
+      {pageHeadData}
       <ErrorAlert><p>Invalid filter</p></ErrorAlert>
       <div className={"center"}>
         <Button link={"/events"}>Show All Events</Button>
@@ -56,8 +70,19 @@ const FilteredEvents = (props) => {
     </>
   }
 
+  pageHeadData = (
+    <Head>
+      <title>Filtered Events</title>
+      <meta 
+        name="description" 
+        content={`All events for ${numberMonth}/${numberYear}`}
+      />
+    </Head>
+  );
+
   if (loadedEvents.length === 0) {
     return <>
+      {pageHeadData}
       <ErrorAlert><p>No events found</p></ErrorAlert>
       <div className={"center"}>
         <Button link={"/events"}>Show All Events</Button>
@@ -67,10 +92,7 @@ const FilteredEvents = (props) => {
 
   return (
     <>
-      <Head>
-        <title>Filtered Events</title>
-        <meta name="description" content="description" />
-      </Head>
+      {pageHeadData}
       <ResultsTitle date={new Date(numberYear, numberMonth - 1)} />
       <EventList items={loadedEvents} />
     </>
