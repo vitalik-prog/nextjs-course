@@ -3,6 +3,7 @@ import styles from '../styles/Home.module.css'
 import EventList from '../src/components/events/event-list';
 import {getFeaturedEvents} from '../src/components/helpers/api';
 import Head from 'next/head';
+import NewsletterRegistration from '../src/components/input/newletter-registration';
 
 export default function Home(props) {
   return (
@@ -11,7 +12,7 @@ export default function Home(props) {
         <title>NextJS Events</title>
         <meta name="description" content="Find a lot of great events that allow you to evolve..." />
       </Head>
-      <h1>Home page</h1>
+      <NewsletterRegistration />
       <EventList items={props.events} />
     </div>
   )
