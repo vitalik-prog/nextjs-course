@@ -1,5 +1,11 @@
-export default function handler(req, res) {
+import { MongoClient } from 'mongodb';
+
+export default async function handler(req, res) {
   const eventId = req.query.eventId;
+
+  const client = await MongoClient.connect(process.env.MONGO_URI, {
+    useUnifiedTopology: true,
+  });
 
   if (req.method === 'POST') {
     const { email, name, text } = req.body;
@@ -15,23 +21,24 @@ export default function handler(req, res) {
     }
 
     const newComment = {
-      id: new Date().toISOString(),
+      eventId,
       email,
       name,
       text,
     };
 
-    console.log(newComment);
+    const db = client.db()
+    const result = await db.collection('comments').insertOne(newComment);
+    newComment._id = result.insertedId;
+
     res.status(201).json({ message: 'Added comment.', comment: newComment });
   } 
   
   if (req.method === 'GET') {
-    const data = {
-      comments: [
-        { id: 'c1', name: 'Max', text: 'A first comment!' },
-        { id: 'c2', name: 'Manuel', text: 'A second comment!' },
-      ],
-    };
-    res.status(200).json({ comments: data.comments });
+    const db = client.db()
+    const data = await db.collection('comments').find().sort({ _id: -1 }).toArray();
+
+    res.status(200).json({ comments: data });
+    client.close();
   }
 }
